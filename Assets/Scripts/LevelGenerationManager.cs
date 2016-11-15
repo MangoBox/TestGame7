@@ -1,25 +1,23 @@
 ﻿using UnityEngine;
 using System.Collections;
 using System.Linq;
+using System.Collections.Generic;
 
 public class LevelGenerationManager : MonoBehaviour {
 
     /* This class should be used for level generation-related methods and calculations.
     */
 
+	//One-time use variable, used for the first generation point.
     public Transform initialGenerationPoint;
 
     //Variables
     //PREFAB variable. RoadObject to generate.
     public GameObject roadObject;
 
-    private int playerRoadIndex;
-    private int toGenerateAmount;
-
+	//How many road objects should be generated ahead and behind the camera, respectively.
     public int generateAheadInstances;
     public int generateBehindInstances;
-
-    private int indexReference;
     
     //Class references
     //RoadGenerationController Reference, intended for creating individual sectors.
@@ -30,27 +28,37 @@ public class LevelGenerationManager : MonoBehaviour {
     //This method should be called whenever the player moves into a new sector, run begins, etc.
     //Generates ALL required sectors for playing.
     public void ManageRequiredSectors(GameObject player, Transform baseSectorParent)
-    {
-        //Generating ahead & behind sectors
+	{
+		//Generating ahead & behind sectors
         
-        //Finding the index of the players road object. WIP
-        playerRoadIndex = roadGenerationManager.roadObjectSectorArray.IndexOf(player.GetComponent<CarController>().currentRoadObject);
-        toGenerateAmount = generateBehindInstances + generateAheadInstances;
-
-        for (int i = 0; i < toGenerateAmount; i++)
+		//Finding the index of the players road object. WIP
+		int playerRoadIndex = roadGenerationManager.roadObjectSectorArray.IndexOf (player.GetComponent<CarController> ().currentRoadObject);
+		//The total amount of times generation is required.
+		int toGenerateAmount = generateBehindInstances + generateAheadInstances;
+		//The roadObjectSector array index to begin generating from.
+		int indexGenerateFrom = playerRoadIndex - generateBehindInstances;
+		//The roadObjectSector array index to cease generating from.
+		int indexGenerateTo = playerRoadIndex + generateAheadInstances;
+		//A local, temporary dynamic array to store road objects generated this instance of method.
+		//Used for testing what needs to be deleted.
+		List<GameObject> roadObjectArray;
+        for (int i = indexGenerateFrom; i <= indexGenerateTo; i++)
         {
             if (!roadGenerationManager.roadObjectSectorArray.Contains(roadGenerationManager.roadObjectSectorArray[i]))
             {
-                roadGenerationManager.GenerateNewRoadSector(getNextGenerationPoint(roadGenerationManager.roadObjectSectorArray[i - 1]).position,baseSectorParent);
+                GameObject instantiatedRoadObject = roadGenerationManager.GenerateNewRoadSector(getNextGenerationPoint(roadGenerationManager.roadObjectSectorArray[i - 1]).position,baseSectorParent);
+				roadObjectArray.Add (roadGenerationManager.roadObjectSectorArray.IndexOf(instantiatedRoadObject));
             }
         }
 
+		//For every total generated roadObject in the roadObjectSectorArray, this loop will see if the roadObject has generated in this instance of this method.
+		//If not (it was generated sometime else and thus is no longer needed), the roadObject is destroyed.
         foreach (GameObject roadObject in roadGenerationManager.roadObjectSectorArray)
         {
-            
+			if(!roadObjectArray.Contains(roadObject)) {
+				Destroy (roadObject);
+			}
         }
-
-        //Destroying ahead & behind sectors
     }
 
 
