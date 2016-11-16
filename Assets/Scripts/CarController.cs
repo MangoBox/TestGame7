@@ -32,5 +32,6 @@ public class CarController : MonoBehaviour {
         {
             currentRoadObject = other.gameObject;
         }
+
     }
 }

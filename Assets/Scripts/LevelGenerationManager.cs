@@ -25,6 +25,8 @@ public class LevelGenerationManager : MonoBehaviour {
     public CarController carController;
     public CarManagement carManagement;
 
+    List<GameObject> roadObjectArray = null;
+
     //This method should be called whenever the player moves into a new sector, run begins, etc.
     //Generates ALL required sectors for playing.
     public void ManageRequiredSectors(GameObject player, Transform baseSectorParent)
@@ -41,17 +43,19 @@ public class LevelGenerationManager : MonoBehaviour {
 		int indexGenerateTo = playerRoadIndex + generateAheadInstances;
 		//A local, temporary dynamic array to store road objects generated this instance of method.
 		//Used for testing what needs to be deleted.
-		List<GameObject> roadObjectArray;
+		
         for (int i = indexGenerateFrom; i <= indexGenerateTo; i++)
         {
-            if (!roadGenerationManager.roadObjectSectorArray.Contains(roadGenerationManager.roadObjectSectorArray[i]))
-            {
-                GameObject instantiatedRoadObject = roadGenerationManager.GenerateNewRoadSector(getNextGenerationPoint(roadGenerationManager.roadObjectSectorArray[i - 1]).position,baseSectorParent);
-				roadObjectArray.Add (roadGenerationManager.roadObjectSectorArray.IndexOf(instantiatedRoadObject));
+            if(i > 0) {
+                if (!roadGenerationManager.roadObjectSectorArray.Contains(roadGenerationManager.roadObjectSectorArray[i]))
+                {
+                    GameObject instantiatedRoadBase = roadGenerationManager.GenerateNewRoadSector(getNextGenerationPoint(roadGenerationManager.roadObjectSectorArray[i - 1]).position,baseSectorParent);
+                    roadObjectArray.Add(instantiatedRoadBase);
+                }
             }
         }
 
-		//For every total generated roadObject in the roadObjectSectorArray, this loop will see if the roadObject has generated in this instance of this method.
+        //For every total generated roadObject in the roadObjectSectorArray, this loop will see if the roadObject has generated in this instance of this method.
 		//If not (it was generated sometime else and thus is no longer needed), the roadObject is destroyed.
         foreach (GameObject roadObject in roadGenerationManager.roadObjectSectorArray)
         {
@@ -59,6 +63,9 @@ public class LevelGenerationManager : MonoBehaviour {
 				Destroy (roadObject);
 			}
         }
+
+        //This ensures that the array is OK for next method use, and not full of roads that we have already used.
+        roadObjectArray.Clear();
     }
 
 

@@ -13,6 +13,9 @@ public class RoadGenerationManager : MonoBehaviour {
     public GameObject[] fenceAssetArray;
     public GameObject[] letterboxAssetArray;
 
+    //This should be used for the parent of the road objects. Empty transform.
+    public GameObject roadParent;
+
     //This is a dynamic array for runtime road objects. Should not be modified outside of runtime.
     public List<GameObject> roadObjectSectorArray;
 
@@ -21,11 +24,12 @@ public class RoadGenerationManager : MonoBehaviour {
     //Below are methods specifically for selecting random assets for generation.
     GameObject SelectRandomRoad()
     {
+        //We should not need to worry about out of index array exceptions, as we only referencing to a static length.
         return roadAssetArray[Random.Range(0, roadAssetArray.Length)];
     }
 
     public GameObject GenerateNewRoadSector(Vector3 pos, Transform parentObject) {
-        GameObject instantiatedRoadBase = (GameObject) Instantiate(new GameObject(), pos, Quaternion.Euler(0, 0, 0));
+        GameObject instantiatedRoadBase = (GameObject) Instantiate(roadParent, pos, Quaternion.Euler(0, 0, 0));
         GameObject instantiatedRoadObject = (GameObject) Instantiate(SelectRandomRoad(), pos, Quaternion.Euler(-90,0,0));
 
         //Parents the main road object to the instantiatedRoadBase for future parenting of other objects.
@@ -34,7 +38,7 @@ public class RoadGenerationManager : MonoBehaviour {
         instantiatedRoadBase.transform.SetParent(parentObject);
 
 		//WIP - Since the origin point of the road is in the exact centre of the mesh, and we are trying to append it on the end, this sets the position to its own generationPoint.
-		instantiatedRoadBase.transform.position = levelGenerationManager.getNextGenerationPoint (instantiatedRoadBase).position;
+		instantiatedRoadBase.transform.position = levelGenerationManager.getNextGenerationPoint (instantiatedRoadObject).position;
 
         //Adds the road object to the runtime generated array, for future destroying and referencing.
         //WIP - May add object to empty indexes at beginning of array, WE DON'T WANT THIS
