@@ -43,16 +43,16 @@ public class LevelGenerationManager : MonoBehaviour {
 		int indexGenerateTo = playerRoadIndex + generateAheadInstances;
 		//A local, temporary dynamic array to store road objects generated this instance of method.
 		//Used for testing what needs to be deleted.
-		
+
         for (int i = indexGenerateFrom; i <= indexGenerateTo; i++)
         {
-            if(i > 0) {
-                if (!roadGenerationManager.roadObjectSectorArray.Contains(roadGenerationManager.roadObjectSectorArray[i]))
+				//Finding whether the index is larger than 0 to solve any unwanted negative index issues.
+				int clampedIndex = Mathf.Max(0, i);
+				if (!roadGenerationManager.roadObjectSectorArray.Contains(roadGenerationManager.roadObjectSectorArray[clampedIndex]))
                 {
                     GameObject instantiatedRoadBase = roadGenerationManager.GenerateNewRoadSector(getNextGenerationPoint(roadGenerationManager.roadObjectSectorArray[i - 1]).position,baseSectorParent);
                     roadObjectArray.Add(instantiatedRoadBase);
                 }
-            }
         }
 
         //For every total generated roadObject in the roadObjectSectorArray, this loop will see if the roadObject has generated in this instance of this method.

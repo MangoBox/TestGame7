@@ -37,7 +37,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.44692558, g: 0.49678743, b: 0.57508624, a: 1}
+  m_IndirectSpecularColor: {r: 0.44692534, g: 0.49678725, b: 0.57508564, a: 1}
 --- !u!157 &3
 LightmapSettings:
   m_ObjectHideFlags: 0
@@ -450,6 +450,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   roadGenerationManager: {fileID: 843832244}
   levelGenerationManager: {fileID: 843832246}
+  carController: {fileID: 0}
   playerCarReference: {fileID: 198584718}
   parentObject: {fileID: 2140511696}
 --- !u!1001 &1203439795
@@ -676,11 +677,11 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 4000011018612144, guid: 792a305b154c334499dd60d0dc6b690f, type: 2}
       propertyPath: m_LocalPosition.y
-      value: -0
+      value: 21.1
       objectReference: {fileID: 0}
     - target: {fileID: 4000011018612144, guid: 792a305b154c334499dd60d0dc6b690f, type: 2}
       propertyPath: m_LocalPosition.z
-      value: -5.38
+      value: -0
       objectReference: {fileID: 0}
     - target: {fileID: 4000011018612144, guid: 792a305b154c334499dd60d0dc6b690f, type: 2}
       propertyPath: m_LocalRotation.x
