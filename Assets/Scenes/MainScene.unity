@@ -107,6 +107,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   currentRoadObject: {fileID: 0}
+  runController: {fileID: 843832247}
 --- !u!114 &198584721 stripped
 MonoBehaviour:
   m_PrefabParentObject: {fileID: 114000011504852838, guid: 792a305b154c334499dd60d0dc6b690f,
@@ -432,8 +433,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   initialGenerationPoint: {fileID: 1438594332}
   roadObject: {fileID: 1000013818638580, guid: 8cdfb9d3eef88bb4c8964a2e3c03a53d, type: 2}
-  generateAheadInstances: 6
-  generateBehindInstances: 29
+  generateAheadInstances: 3
+  generateBehindInstances: 3
   roadGenerationManager: {fileID: 843832244}
   carController: {fileID: 198584719}
   carManagement: {fileID: 198584721}

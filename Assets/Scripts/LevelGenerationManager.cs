@@ -26,7 +26,7 @@ public class LevelGenerationManager : MonoBehaviour {
     public CarManagement carManagement;
 
     public int roadObjectSignature = 1;
-    List<GameObject> roadObjectArray = null;
+
 
     //This method should be called whenever the player moves into a new sector, run begins, etc.
     //Generates ALL required sectors for playing.
@@ -42,6 +42,8 @@ public class LevelGenerationManager : MonoBehaviour {
 		int indexGenerateFrom = playerRoadIndex - generateBehindInstances;
 		//The roadObjectSector array index to cease generating from.
 		int indexGenerateTo = playerRoadIndex + generateAheadInstances;
+        //An array for inserting road objects generated this instance of the method.
+        List<GameObject> roadObjectArray = new List<GameObject>();
 
         //Does not generate objects (run for loop) if index is negative.
         for (int i = Mathf.Max(indexGenerateFrom, 1); i < indexGenerateTo; i++)
@@ -55,6 +57,8 @@ public class LevelGenerationManager : MonoBehaviour {
             GameObject instantiatedRoadObject = roadGenerationManager.GenerateNewRoadSector(positiveCondition ? roadObjectController.LocalGenerationPoint.transform : initialGenerationPoint.transform, baseSectorParent);
             instantiatedRoadObject.name = (instantiatedRoadObject.name + roadObjectSignature);
             roadObjectSignature++;
+            //Adds the road object to the instantiated array for future destroying.
+            roadObjectArray.Add(instantiatedRoadObject);
         }
 
         //For every total generated roadObject in the roadObjectSectorArray, this loop will see if the roadObject has generated in this instance of this method.

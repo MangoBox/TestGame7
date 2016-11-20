@@ -6,7 +6,7 @@ public class CarController : MonoBehaviour {
     //This class should be used for the physics and controls of the car.
     public GameObject currentRoadObject;
 
-
+    public RunController runController;
     //Can be used for external retreival of the GameObject.
     public GameObject getCarObject()
     {
@@ -32,6 +32,7 @@ public class CarController : MonoBehaviour {
         {
             currentRoadObject = other.gameObject;
         }
+        runController.EnterNewSector(this.gameObject);
 
     }
 }
