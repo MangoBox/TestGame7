@@ -30,7 +30,7 @@ public class RunController : MonoBehaviour {
     public void BeginNewRun(GameObject playerCar)
     {
         //Creating a initial generation road.
-        roadGenerationManager.GenerateNewRoadSector(levelGenerationManager.initialGenerationPoint.position, parentObject);
+        roadGenerationManager.GenerateNewRoadSector(levelGenerationManager.initialGenerationPoint, parentObject);
         EnterNewSector(playerCar);
     }
 }

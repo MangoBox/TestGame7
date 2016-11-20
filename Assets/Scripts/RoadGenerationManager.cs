@@ -28,9 +28,14 @@ public class RoadGenerationManager : MonoBehaviour {
         return roadAssetArray[Random.Range(0, roadAssetArray.Length)];
     }
 
-    public GameObject GenerateNewRoadSector(Vector3 pos, Transform parentObject) {
-        GameObject instantiatedRoadBase = (GameObject) Instantiate(roadParent, pos, Quaternion.Euler(0, 0, 0));
-        GameObject instantiatedRoadObject = (GameObject) Instantiate(SelectRandomRoad(), pos, Quaternion.Euler(-90,0,0));
+    public GameObject GenerateNewRoadSector(Transform objectTransform, Transform parentObject) {
+        GameObject instantiatedRoadBase = (GameObject) Instantiate(roadParent, objectTransform.position, Quaternion.Euler(0, 0, 0));
+        GameObject instantiatedRoadObject = (GameObject) Instantiate(SelectRandomRoad(), objectTransform.position, Quaternion.Euler(-90,0,0));
+
+        //This area finds the append & generation points for the road object, then sets the variables in the road base.
+        RoadBaseController roadBaseController = instantiatedRoadBase.GetComponent<RoadBaseController>();
+        roadBaseController.LocalAppendPoint = levelGenerationManager.getNextAppendPoint(instantiatedRoadObject);
+        roadBaseController.LocalGenerationPoint = levelGenerationManager.getNextGenerationPoint(instantiatedRoadObject);
 
         //Parents the main road object to the instantiatedRoadBase for future parenting of other objects.
         instantiatedRoadObject.transform.SetParent(instantiatedRoadBase.transform, true);

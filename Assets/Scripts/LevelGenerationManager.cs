@@ -25,6 +25,7 @@ public class LevelGenerationManager : MonoBehaviour {
     public CarController carController;
     public CarManagement carManagement;
 
+    public int roadObjectSignature = 1;
     List<GameObject> roadObjectArray = null;
 
     //This method should be called whenever the player moves into a new sector, run begins, etc.
@@ -41,18 +42,19 @@ public class LevelGenerationManager : MonoBehaviour {
 		int indexGenerateFrom = playerRoadIndex - generateBehindInstances;
 		//The roadObjectSector array index to cease generating from.
 		int indexGenerateTo = playerRoadIndex + generateAheadInstances;
-		//A local, temporary dynamic array to store road objects generated this instance of method.
-		//Used for testing what needs to be deleted.
-		
-        for (int i = indexGenerateFrom; i <= indexGenerateTo; i++)
+
+        //Does not generate objects (run for loop) if index is negative.
+        for (int i = Mathf.Max(indexGenerateFrom, 1); i < indexGenerateTo; i++)
         {
-            if(i > 0) {
-                if (!roadGenerationManager.roadObjectSectorArray.Contains(roadGenerationManager.roadObjectSectorArray[i]))
-                {
-                    GameObject instantiatedRoadBase = roadGenerationManager.GenerateNewRoadSector(getNextGenerationPoint(roadGenerationManager.roadObjectSectorArray[i - 1]).position,baseSectorParent);
-                    roadObjectArray.Add(instantiatedRoadBase);
-                }
-            }
+            //This function ensures that the index MUST be either 0 or a positive index.
+            int a = Mathf.Max(0, i);
+            //This sets positiveCondition to true of a is NOT equal to zero.
+            bool positiveCondition = !(a == 0);
+            Debug.Log(i + " " + a + " " + positiveCondition.ToString());
+            RoadBaseController roadObjectController = roadGenerationManager.roadObjectSectorArray[a - 1].gameObject.GetComponent<RoadBaseController>();
+            GameObject instantiatedRoadObject = roadGenerationManager.GenerateNewRoadSector(positiveCondition ? roadObjectController.LocalGenerationPoint.transform : initialGenerationPoint.transform, baseSectorParent);
+            instantiatedRoadObject.name = (instantiatedRoadObject.name + roadObjectSignature);
+            roadObjectSignature++;
         }
 
         //For every total generated roadObject in the roadObjectSectorArray, this loop will see if the roadObject has generated in this instance of this method.

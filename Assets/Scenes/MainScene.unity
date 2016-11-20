@@ -432,11 +432,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   initialGenerationPoint: {fileID: 1438594332}
   roadObject: {fileID: 1000013818638580, guid: 8cdfb9d3eef88bb4c8964a2e3c03a53d, type: 2}
-  generateAheadInstances: 3
-  generateBehindInstances: 0
+  generateAheadInstances: 6
+  generateBehindInstances: 29
   roadGenerationManager: {fileID: 843832244}
   carController: {fileID: 198584719}
   carManagement: {fileID: 198584721}
+  roadObjectSignature: 1
 --- !u!114 &843832247
 MonoBehaviour:
   m_ObjectHideFlags: 0
