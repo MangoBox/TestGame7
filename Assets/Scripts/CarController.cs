@@ -7,7 +7,7 @@ public class CarController : MonoBehaviour {
     public GameObject currentRoadObject;
 	public RunController runController;
 
-
+    public RunController runController;
     //Can be used for external retreival of the GameObject.
     public GameObject getCarObject()
     {
@@ -34,6 +34,7 @@ public class CarController : MonoBehaviour {
 			currentRoadObject = other.transform.parent.gameObject;
 			runController.EnterNewSector (this.gameObject);
         }
+        runController.EnterNewSector(this.gameObject);
 
     }
 }

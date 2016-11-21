@@ -30,9 +30,8 @@ public class RunController : MonoBehaviour {
     //A global method to be called when a new run is created.
     public void BeginNewRun(GameObject playerCar)
     {
-        //Creating a initial generation road, and assigning it to the current road object for the car.
-		roadGenerationManager.GenerateNewRoadSector(levelGenerationManager.initialGenerationPoint.position, parentObject);
+        //Creating a initial generation road.
+        roadGenerationManager.GenerateNewRoadSector(levelGenerationManager.initialGenerationPoint, parentObject);
         EnterNewSector(playerCar);
-
     }
 }
