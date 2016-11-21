@@ -114,6 +114,11 @@ MonoBehaviour:
     type: 2}
   m_PrefabInternal: {fileID: 2085276292}
   m_Script: {fileID: 11500000, guid: 9aee578724539314d8f1cd16e8475721, type: 3}
+--- !u!4 &198584726 stripped
+Transform:
+  m_PrefabParentObject: {fileID: 4000011018612144, guid: 792a305b154c334499dd60d0dc6b690f,
+    type: 2}
+  m_PrefabInternal: {fileID: 2085276292}
 --- !u!1 &232033546
 GameObject:
   m_ObjectHideFlags: 0
@@ -202,7 +207,7 @@ RectTransform:
   m_Children:
   - {fileID: 1594712071}
   m_Father: {fileID: 0}
-  m_RootOrder: 5
+  m_RootOrder: 4
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
   m_AnchoredPosition: {x: 0, y: 0}
@@ -301,12 +306,12 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 352922234}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 1, z: -10}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalRotation: {x: 0.8948138, y: -0, z: -0, w: 0.44643965}
+  m_LocalPosition: {x: 0, y: 0.10200005, z: 0.14100002}
+  m_LocalScale: {x: 0.06666666, y: 0.06666666, z: 0.06666666}
+  m_LocalEulerAnglesHint: {x: 126.978, y: -0.000015258789, z: -0.000015258789}
   m_Children: []
-  m_Father: {fileID: 0}
+  m_Father: {fileID: 198584726}
   m_RootOrder: 0
 --- !u!1 &353888838
 GameObject:
@@ -369,7 +374,7 @@ Transform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 6
+  m_RootOrder: 5
 --- !u!1 &843832243
 GameObject:
   m_ObjectHideFlags: 0
@@ -419,7 +424,7 @@ Transform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 4
+  m_RootOrder: 3
 --- !u!114 &843832246
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -433,8 +438,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   initialGenerationPoint: {fileID: 1438594332}
   roadObject: {fileID: 1000013818638580, guid: 8cdfb9d3eef88bb4c8964a2e3c03a53d, type: 2}
-  generateAheadInstances: 3
-  generateBehindInstances: 3
+  generateAheadInstances: 5
+  generateBehindInstances: 7
   roadGenerationManager: {fileID: 843832244}
   carController: {fileID: 198584719}
   carManagement: {fileID: 198584721}
@@ -492,7 +497,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 4000014226015818, guid: 3c7e26b8df1f3304a9428c25df976e3f, type: 2}
       propertyPath: m_RootOrder
-      value: 3
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 1000012322018026, guid: 3c7e26b8df1f3304a9428c25df976e3f, type: 2}
       propertyPath: m_Name
@@ -563,7 +568,7 @@ Transform:
   m_LocalEulerAnglesHint: {x: 50, y: -30, z: 0}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 2
+  m_RootOrder: 1
 --- !u!1 &1438594331
 GameObject:
   m_ObjectHideFlags: 0
@@ -591,7 +596,7 @@ Transform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 7
+  m_RootOrder: 6
 --- !u!1 &1594712070
 GameObject:
   m_ObjectHideFlags: 0
@@ -683,7 +688,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 4000011018612144, guid: 792a305b154c334499dd60d0dc6b690f, type: 2}
       propertyPath: m_LocalPosition.z
-      value: -0
+      value: 11.5
       objectReference: {fileID: 0}
     - target: {fileID: 4000011018612144, guid: 792a305b154c334499dd60d0dc6b690f, type: 2}
       propertyPath: m_LocalRotation.x
@@ -703,7 +708,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 4000011018612144, guid: 792a305b154c334499dd60d0dc6b690f, type: 2}
       propertyPath: m_RootOrder
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 792a305b154c334499dd60d0dc6b690f, type: 2}
@@ -735,4 +740,4 @@ Transform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 8
+  m_RootOrder: 7

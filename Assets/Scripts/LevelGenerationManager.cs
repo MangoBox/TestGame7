@@ -52,11 +52,12 @@ public class LevelGenerationManager : MonoBehaviour {
             int a = Mathf.Max(0, i);
             //This sets positiveCondition to true of a is NOT equal to zero.
             bool positiveCondition = !(a == 0);
-            Debug.Log(i + " " + a + " " + positiveCondition.ToString());
+			Debug.Log (a - 1);
+			//Creates a reference to the RoadBaseController, which is the previously instantiated road object.
             RoadBaseController roadObjectController = roadGenerationManager.roadObjectSectorArray[a - 1].gameObject.GetComponent<RoadBaseController>();
+			//Instantiates the road object itself. Also checks that the index of the array is not zero since that would throw an error.
             GameObject instantiatedRoadObject = roadGenerationManager.GenerateNewRoadSector(positiveCondition ? roadObjectController.LocalGenerationPoint.transform : initialGenerationPoint.transform, baseSectorParent);
-            instantiatedRoadObject.name = (instantiatedRoadObject.name + roadObjectSignature);
-            roadObjectSignature++;
+
             //Adds the road object to the instantiated array for future destroying.
             roadObjectArray.Add(instantiatedRoadObject);
         }

@@ -5,7 +5,6 @@ public class CarController : MonoBehaviour {
 
     //This class should be used for the physics and controls of the car.
     public GameObject currentRoadObject;
-	public RunController runController;
 
     public RunController runController;
     //Can be used for external retreival of the GameObject.
@@ -31,7 +30,7 @@ public class CarController : MonoBehaviour {
     {
         if (other.name == "RoadDetectionCollider")
         {
-			currentRoadObject = other.transform.parent.gameObject;
+			currentRoadObject = other.transform.parent.parent.gameObject;
 			runController.EnterNewSector (this.gameObject);
         }
         runController.EnterNewSector(this.gameObject);

@@ -30,7 +30,7 @@ public class RoadGenerationManager : MonoBehaviour {
 
     public GameObject GenerateNewRoadSector(Transform objectTransform, Transform parentObject) {
         GameObject instantiatedRoadBase = (GameObject) Instantiate(roadParent, objectTransform.position, Quaternion.Euler(0, 0, 0));
-        GameObject instantiatedRoadObject = (GameObject) Instantiate(SelectRandomRoad(), objectTransform.position, Quaternion.Euler(-90,0,0));
+        GameObject instantiatedRoadObject = (GameObject) Instantiate(SelectRandomRoad(), objectTransform.position, Quaternion.Euler(-90,180,0));
 
         //This area finds the append & generation points for the road object, then sets the variables in the road base.
         RoadBaseController roadBaseController = instantiatedRoadBase.GetComponent<RoadBaseController>();
@@ -45,9 +45,12 @@ public class RoadGenerationManager : MonoBehaviour {
 		//WIP - Since the origin point of the road is in the exact centre of the mesh, and we are trying to append it on the end, this sets the position to its own generationPoint.
 		instantiatedRoadBase.transform.position = levelGenerationManager.getNextGenerationPoint (instantiatedRoadObject).position;
 
-        //Adds the road object to the runtime generated array, for future destroying and referencing.
+		//Adds the road object to the runtime generated array, for future destroying and referencing.
         //WIP - May add object to empty indexes at beginning of array, WE DON'T WANT THIS
 		roadObjectSectorArray.Add(instantiatedRoadBase); 
+
+		//Adds the index of the instantiated road object as a string to the end of the objects name, both for (rather dodgy) global reference, or general visual debugging.
+		instantiatedRoadBase.name += " (" + roadObjectSectorArray.IndexOf(instantiatedRoadBase) + ")";
 		return instantiatedRoadBase;
     }
     
