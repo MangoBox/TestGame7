@@ -37,7 +37,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.44692534, g: 0.49678725, b: 0.57508564, a: 1}
+  m_IndirectSpecularColor: {r: 0.44692558, g: 0.49678743, b: 0.57508624, a: 1}
 --- !u!157 &3
 LightmapSettings:
   m_ObjectHideFlags: 0
@@ -438,11 +438,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   initialGenerationPoint: {fileID: 1438594332}
   roadObject: {fileID: 1000013818638580, guid: 8cdfb9d3eef88bb4c8964a2e3c03a53d, type: 2}
-  generateAheadInstances: 5
-  generateBehindInstances: 7
+  generateAheadInstances: 12
+  generateBehindInstances: 12
+  parentDestroyedSector: {fileID: 0}
   roadGenerationManager: {fileID: 843832244}
   carController: {fileID: 198584719}
   carManagement: {fileID: 198584721}
+  transformSectorArray: []
   roadObjectSignature: 1
 --- !u!114 &843832247
 MonoBehaviour:
@@ -684,7 +686,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 4000011018612144, guid: 792a305b154c334499dd60d0dc6b690f, type: 2}
       propertyPath: m_LocalPosition.y
-      value: 21.1
+      value: 30.04
       objectReference: {fileID: 0}
     - target: {fileID: 4000011018612144, guid: 792a305b154c334499dd60d0dc6b690f, type: 2}
       propertyPath: m_LocalPosition.z

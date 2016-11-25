@@ -18,12 +18,18 @@ public class LevelGenerationManager : MonoBehaviour {
 	//How many road objects should be generated ahead and behind the camera, respectively.
     public int generateAheadInstances;
     public int generateBehindInstances;
+
+    //An array for storing past destroyed road objects, keeping them as transforms - WIP.
+    public Transform parentDestroyedSector;
     
     //Class references
     //RoadGenerationController Reference, intended for creating individual sectors.
     public RoadGenerationManager roadGenerationManager;
     public CarController carController;
     public CarManagement carManagement;
+
+    //A transform array for destroyed objects. Before destroying, a reminant transform is left for future reference.
+    public List<Transform> transformSectorArray;
 
     public int roadObjectSignature = 1;
 
@@ -53,13 +59,17 @@ public class LevelGenerationManager : MonoBehaviour {
             //This sets positiveCondition to true of a is NOT equal to zero.
             bool positiveCondition = !(a == 0);
 			Debug.Log (a - 1);
-			//Creates a reference to the RoadBaseController, which is the previously instantiated road object.
-            RoadBaseController roadObjectController = roadGenerationManager.roadObjectSectorArray[a - 1].gameObject.GetComponent<RoadBaseController>();
-			//Instantiates the road object itself. Also checks that the index of the array is not zero since that would throw an error.
-            GameObject instantiatedRoadObject = roadGenerationManager.GenerateNewRoadSector(positiveCondition ? roadObjectController.LocalGenerationPoint.transform : initialGenerationPoint.transform, baseSectorParent);
 
+            //Instantiates the road object itself. Also checks that the index of the array is not zero since that would throw an error, AND checks that the referenced gameobject is not null.
+            if (roadGenerationManager.roadObjectSectorArray[a - 1] != null)
+            {
+                //Creates a reference to the RoadBaseController, which is the previously instantiated road object.
+                RoadBaseController roadObjectController = roadGenerationManager.roadObjectSectorArray[a - 1].GetComponent<RoadBaseController>();
+                GameObject instantiatedRoadObject = roadGenerationManager.GenerateNewRoadSector(positiveCondition ? roadObjectController.LocalGenerationPoint.transform : initialGenerationPoint.transform, baseSectorParent);
+                roadObjectArray.Add(instantiatedRoadObject);
+            }
             //Adds the road object to the instantiated array for future destroying.
-            roadObjectArray.Add(instantiatedRoadObject);
+            
         }
 
         //For every total generated roadObject in the roadObjectSectorArray, this loop will see if the roadObject has generated in this instance of this method.
@@ -67,7 +77,10 @@ public class LevelGenerationManager : MonoBehaviour {
         foreach (GameObject roadObject in roadGenerationManager.roadObjectSectorArray)
         {
 			if(!roadObjectArray.Contains(roadObject)) {
-				Destroy (roadObject);
+                //GameObject destroyedTransform = (GameObject) Instantiate(new GameObject(), roadObject.GetComponent<RoadBaseController>().LocalGenerationPoint.position, Quaternion.Euler(0, 0, 0));
+               // destroyedTransform.transform.SetParent(parentDestroyedSector);
+                //transformSectorArray.Add(destroyedTransform.transform);
+                Destroy (roadObject);
 			}
         }
 
@@ -77,6 +90,7 @@ public class LevelGenerationManager : MonoBehaviour {
 
 
     //2 methods for finding the next generation & append points of the parameter roadObject.
+
     public Transform getNextGenerationPoint(GameObject roadObject)
     {
         return roadObject.transform.FindChild("GenerationPoint");

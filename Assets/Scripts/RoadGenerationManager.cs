@@ -16,8 +16,9 @@ public class RoadGenerationManager : MonoBehaviour {
     //This should be used for the parent of the road objects. Empty transform.
     public GameObject roadParent;
 
-    //This is a dynamic array for runtime road objects. Should not be modified outside of runtime.
+    //This is a dynamic array for runtime road objects & transforms. Should not be modified outside of runtime.
     public List<GameObject> roadObjectSectorArray;
+
 
 	public LevelGenerationManager levelGenerationManager;
 
@@ -33,9 +34,12 @@ public class RoadGenerationManager : MonoBehaviour {
         GameObject instantiatedRoadObject = (GameObject) Instantiate(SelectRandomRoad(), objectTransform.position, Quaternion.Euler(-90,180,0));
 
         //This area finds the append & generation points for the road object, then sets the variables in the road base.
-        RoadBaseController roadBaseController = instantiatedRoadBase.GetComponent<RoadBaseController>();
-        roadBaseController.LocalAppendPoint = levelGenerationManager.getNextAppendPoint(instantiatedRoadObject);
-        roadBaseController.LocalGenerationPoint = levelGenerationManager.getNextGenerationPoint(instantiatedRoadObject);
+        RoadBaseController roadBaseController = instantiatedRoadBase.GetComponent( typeof(RoadBaseController)) as RoadBaseController;
+        if (roadBaseController != null)
+        {
+            roadBaseController.LocalAppendPoint = levelGenerationManager.getNextAppendPoint(instantiatedRoadObject);
+            roadBaseController.LocalGenerationPoint = levelGenerationManager.getNextGenerationPoint(instantiatedRoadObject);
+        }
 
         //Parents the main road object to the instantiatedRoadBase for future parenting of other objects.
         instantiatedRoadObject.transform.SetParent(instantiatedRoadBase.transform, true);
@@ -47,7 +51,7 @@ public class RoadGenerationManager : MonoBehaviour {
 
 		//Adds the road object to the runtime generated array, for future destroying and referencing.
         //WIP - May add object to empty indexes at beginning of array, WE DON'T WANT THIS
-		roadObjectSectorArray.Add(instantiatedRoadBase); 
+		roadObjectSectorArray.Add(instantiatedRoadBase);
 
 		//Adds the index of the instantiated road object as a string to the end of the objects name, both for (rather dodgy) global reference, or general visual debugging.
 		instantiatedRoadBase.name += " (" + roadObjectSectorArray.IndexOf(instantiatedRoadBase) + ")";
